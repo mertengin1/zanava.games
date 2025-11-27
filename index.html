@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zanava Games | Indie Game Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #121212;
+            --main-color: #4cd137; /* GameBoy Yeşili/Parlak Yeşil */
+            --accent-color: #9c88ff; /* Retro Mor */
+            --text-color: #f5f6fa;
+            --pixel-size: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'VT323', monospace; /* Okunabilir pixel font */
+            font-size: 1.5rem;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- CRT SCANLINE EFEKTİ --- */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* --- HEADER & HERO --- */
+        header {
+            text-align: center;
+            padding: 4rem 1rem;
+            border-bottom: 4px solid var(--main-color);
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive; /* Başlık Fontu */
+            font-size: 2.5rem;
+            color: var(--main-color);
+            text-shadow: 4px 4px 0px #000;
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            min-height: 2rem;
+        }
+
+        /* --- CONTAINER --- */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* --- OYUN KARTLARI (Pixel Style) --- */
+        .section-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            border-left: 10px solid var(--accent-color);
+            padding-left: 1rem;
+            margin: 3rem 0 2rem 0;
+            color: #fff;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            border: 4px solid var(--text-color);
+            background: #2f3640;
+            padding: 1rem;
+            position: relative;
+            box-shadow: 8px 8px 0px #000; /* Sert gölge */
+            transition: transform 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px var(--main-color);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            background-color: #000;
+            image-rendering: pixelated;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            border: 2px solid #000;
+        }
+
+        .game-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--main-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- BUTONLAR (NES Style) --- */
+        .pixel-btn {
+            display: inline-block;
+            background-color: var(--main-color);
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            
+            /* Pixel Buton Efekti */
+            box-shadow: inset -4px -4px 0px 0px rgba(0,0,0,0.5), inset 4px 4px 0px 0px rgba(255,255,255,0.5);
+        }
+
+        .pixel-btn:active {
+            box-shadow: inset 4px 4px 0px 0px rgba(0,0,0,0.5);
+            transform: translateY(2px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 4px solid var(--main-color);
+            font-size: 1rem;
+            color: #7f8fa6;
+        }
+
+        /* Mobilde düzenleme */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .tagline { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scanlines"></div>
+
+    <header>
+        <h1>ZANAVA GAMES</h1>
+        <div class="tagline" id="typewriter"></div>
+    </header>
+
+    <main class="container">
+        
+        <section id="about">
+            <h2 class="section-title">PRESS START</h2>
+            <p>
+                Biz Zanava Games. Unity motoru ile retro ruhunu modern mekaniklerle birleştiriyoruz. 
+                Siyah beyazın derinliğinde kaybolan, zamanda yolculuk eden ve hikayesiyle iz bırakan 
+                indie oyunlar geliştiriyoruz.
+            </p>
+        </section>
+
+        <section id="games">
+            <h2 class="section-title">PROJECTS</h2>
+            <div class="games-grid">
+                
+                <article class="game-card">
+                    <div class="game-image">
+                        [GÖRSEL]
+                    </div>
+                    <h3 class="game-title">PROJECT TIME</h3>
+                    <p>Zamanda yolculuk temalı, RPG elementleri içeren gizemli bir macera.</p>
+                    <a href="#" class="pixel-btn">İNCELE</a>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-image">
+                        [GÖRSEL]
+                    </div>
+                    <h3 class="game-title">ZUBU LEGACY</h3>
+                    <p>Eski projelerimizden miras kalan, low-poly ve FPS dinamikleri.</p>
+                    <a href="#" class="pixel-btn">İNCELE</a>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Zanava Games. All Rights Reserved.</p>
+        <p style="margin-top:10px;">Powered by Unity & Coffee</p>
+    </footer>
+
+    <script>
+        // --- TYPEWRITER EFEKTİ (Daktilo Yazısı) ---
+        const textToType = "PIXEL ART. UNITY. CREATIVITY.";
+        const typeWriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100); // Yazma hızı (ms cinsinden)
+            } else {
+                // Yazma bitince yanıp sönen imleç ekle
+                typeWriterElement.innerHTML += '<span style="animation: blink 1s infinite">_</span>';
+            }
+        }
+
+        // Yanıp sönme animasyonu için style ekle
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes blink {
+                0% { opacity: 0; }
+                50% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // Sayfa yüklenince başlat
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>
