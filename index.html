@@ -118,14 +118,13 @@
             justify-content: center;
             color: #555;
             border: 2px solid #000;
-            overflow: hidden; /* Görsellerin taşmasını önlemek için */
+            overflow: hidden;
         }
         
-        /* Görsellerin kutuya en-boy oranını koruyarak sığması için ek stil */
         .game-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* cover yerine contain kullanıldı */
+            object-fit: contain;
         }
 
         .game-title {
@@ -147,14 +146,68 @@
             border: none;
             cursor: pointer;
             margin-top: 1rem;
-            
-            /* Pixel Buton Efekti */
             box-shadow: inset -4px -4px 0px 0px rgba(0,0,0,0.5), inset 4px 4px 0px 0px rgba(255,255,255,0.5);
         }
 
         .pixel-btn:active {
             box-shadow: inset 4px 4px 0px 0px rgba(0,0,0,0.5);
             transform: translateY(2px);
+        }
+
+        /* --- MODAL (POPUP) STİLLERİ --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.9); 
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 4px solid var(--main-color);
+            width: 80%;
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 20px var(--main-color);
+        }
+
+        .close-btn {
+            color: var(--main-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .iframe-container {
+            width: 100%;
+            /* Otomatik yükseklik verelim ki senin gönderdiğin widgetlar düzgün dursun */
+            min-height: 300px; 
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #333;
+            padding: 20px;
+        }
+
+        .iframe-container iframe {
+            /* Senin gönderdiğin boyutları koruması için */
+            max-width: 100%;
         }
 
         /* --- FOOTER --- */
@@ -167,7 +220,6 @@
             color: #7f8fa6;
         }
 
-        /* Mobilde düzenleme */
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; }
             .tagline { font-size: 1.2rem; }
@@ -202,7 +254,7 @@
                     </div>
                     <h3 class="game-title">Rudimentary Souls</h3>
                     <p>Open world 3d retro rpg game. Soulslike</p>
-                    <a href="#" class="pixel-btn">Check</a>
+                    <button onclick="openGame('rudimentary')" class="pixel-btn">Check</button>
                 </article>
                 
                 <article class="game-card">
@@ -211,7 +263,7 @@
                     </div>
                     <h3 class="game-title">Viral Chaos</h3>
                     <p>Fun top down rpg game.</p>
-                    <a href="#" class="pixel-btn">Check</a>
+                    <button onclick="openGame('viral')" class="pixel-btn">Check</button>
                 </article>
 
                 <article class="game-card">
@@ -220,23 +272,25 @@
                     </div>
                     <h3 class="game-title">Chase Me</h3>
                     <p>Mystery dungeon game.</p>
-                    <a href="#" class="pixel-btn">Check</a>
+                    <button onclick="openGame('chase')" class="pixel-btn">Check</button>
                 </article>
+                
                 <article class="game-card">
                     <div class="game-image">
                         <img src="images/panda.png" alt="Panda Boy">
                     </div>
                     <h3 class="game-title">Panda Boy</h3>
                     <p>A godot game that i make all the assets.</p>
-                    <a href="#" class="pixel-btn">Check</a>
+                    <button onclick="openGame('panda')" class="pixel-btn">Check</button>
                 </article>
+                
                 <article class="game-card">
                     <div class="game-image">
                         <img src="images/drive.png" alt="Drive Forever">
                     </div>
                     <h3 class="game-title">Drive Forever</h3>
                     <p>Game that i made for Unity Training.</p>
-                    <a href="#" class="pixel-btn">Check</a>
+                    <button onclick="openGame('drive')" class="pixel-btn">Check</button>
                 </article>
 
             </div>
@@ -244,13 +298,23 @@
 
     </main>
 
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGame()">&times;</span>
+            <h2 id="modalTitle" style="margin-bottom: 20px; font-family: 'Press Start 2P'; color: var(--main-color);"></h2>
+            
+            <div class="iframe-container" id="gameFrame">
+                </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Zanava Games. All Rights Reserved.</p>
         <p style="margin-top:10px;">Powered by Unity & Coffee</p>
     </footer>
 
     <script>
-        // --- TYPEWRITER EFEKTİ (Daktilo Yazısı) ---
+        // --- TYPEWRITER EFEKTİ ---
         const textToType = "PIXEL ART. UNITY. CREATIVITY.";
         const typeWriterElement = document.getElementById('typewriter');
         let i = 0;
@@ -259,14 +323,12 @@
             if (i < textToType.length) {
                 typeWriterElement.innerHTML += textToType.charAt(i);
                 i++;
-                setTimeout(typeWriter, 100); // Yazma hızı (ms cinsinden)
+                setTimeout(typeWriter, 100); 
             } else {
-                // Yazma bitince yanıp sönen imleç ekle
                 typeWriterElement.innerHTML += '<span style="animation: blink 1s infinite">_</span>';
             }
         }
 
-        // Yanıp sönme animasyonu için style ekle
         const styleSheet = document.createElement("style");
         styleSheet.innerText = `
             @keyframes blink {
@@ -276,10 +338,58 @@
             }
         `;
         document.head.appendChild(styleSheet);
-
-        // Sayfa yüklenince başlat
         window.onload = typeWriter;
+
+        // --- OYUN AÇMA/KAPAMA MANTIĞI ---
+        const modal = document.getElementById("gameModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const gameFrame = document.getElementById("gameFrame");
+
+        function openGame(gameId) {
+            modal.style.display = "block";
+            let embedCode = "";
+            let titleText = "";
+
+            if(gameId === 'rudimentary') {
+                titleText = "RUDIMENTARY SOULS";
+                embedCode = '<p style="color:#fff;">Link yakında eklenecek...</p>';
+            } 
+            else if(gameId === 'viral') {
+                titleText = "VIRAL KAOS";
+                // Gönderdiğin Viral Chaos kodu
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3261932" width="552" height="167"><a href="https://zanavagames.itch.io/viral-kaos">Viral Kaos by Zanava Games</a></iframe>';
+            }
+            else if(gameId === 'chase') {
+                titleText = "CHASE ME";
+                // Gönderdiğin Chase Me kodu
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3825488" width="552" height="167"><a href="https://zanavagames.itch.io/chaseme">ChaseMe by Zanava Games</a></iframe>';
+            }
+            else if(gameId === 'panda') {
+                titleText = "PANDA BOY";
+                // Gönderdiğin Panda Boy kodu
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3333702" width="552" height="167"><a href="https://zanavagames.itch.io/one-bit-platformer-handmade-assets">Panda Boy by Zanava Games</a></iframe>';
+            }
+            else if(gameId === 'drive') {
+                titleText = "DRIVE FOREVER";
+                // Gönderdiğin Drive Forever kodu
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3263728" width="552" height="167"><a href="https://zanavagames.itch.io/drive-forever">Drive Forever by Zanava Games</a></iframe>';
+            }
+
+            modalTitle.innerText = titleText;
+            gameFrame.innerHTML = embedCode;
+        }
+
+        function closeGame() {
+            modal.style.display = "none";
+            gameFrame.innerHTML = ""; // Kapatınca oyunu durdurur
+        }
+
+        // Pencere dışına tıklayınca kapatma
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeGame();
+            }
+        }
     </script>
 </body>
-
 </html>
