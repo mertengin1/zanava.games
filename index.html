@@ -154,6 +154,16 @@
             transform: translateY(2px);
         }
 
+        /* Sosyal Medya Butonları için Özel Renkler */
+        .btn-youtube {
+            background-color: #FF0000 !important;
+            color: #fff !important;
+        }
+        .btn-instagram {
+            background-color: #C13584 !important;
+            color: #fff !important;
+        }
+
         /* --- MODAL (POPUP) STİLLERİ --- */
         .modal {
             display: none; 
@@ -195,10 +205,10 @@
 
         .iframe-container {
             width: 100%;
-            /* Otomatik yükseklik verelim ki senin gönderdiğin widgetlar düzgün dursun */
-            min-height: 300px; 
+            min-height: 400px; /* YouTube için biraz daha yükseklik */
             background: #000;
             display: flex;
+            flex-direction: column; /* İçerikleri alt alta dizmek için */
             align-items: center;
             justify-content: center;
             border: 2px solid #333;
@@ -206,8 +216,17 @@
         }
 
         .iframe-container iframe {
-            /* Senin gönderdiğin boyutları koruması için */
             max-width: 100%;
+            flex-grow: 1; /* Iframe alanı kaplasın */
+        }
+
+        /* Modal içindeki link kutusu */
+        .social-links-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* --- FOOTER --- */
@@ -223,6 +242,7 @@
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; }
             .tagline { font-size: 1.2rem; }
+            .iframe-container { min-height: 300px; }
         }
     </style>
 </head>
@@ -254,7 +274,7 @@
                     </div>
                     <h3 class="game-title">Rudimentary Souls</h3>
                     <p>Open world 3d retro rpg game. Soulslike</p>
-                    <button onclick="openGame('rudimentary')" class="pixel-btn">Check Links</button>
+                    <button onclick="openGame('rudimentary')" class="pixel-btn">Watch Trailer</button>
                 </article>
                 
                 <article class="game-card">
@@ -352,26 +372,31 @@
 
             if(gameId === 'rudimentary') {
                 titleText = "RUDIMENTARY SOULS";
-                embedCode = '<p style="color:#fff;">Link yakında eklenecek...</p>';
+                // YouTube Embed + Sosyal Medya Linkleri
+                // autoplay=1 parametresi ile otomatik başlar
+                embedCode = `
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/khzwjmpNLgs?autoplay=1" title="Rudimentary Souls Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    
+                    <div class="social-links-container">
+                        <a href="https://www.instagram.com/zanavagames/" target="_blank" class="pixel-btn btn-instagram">INSTAGRAM</a>
+                        <a href="https://www.youtube.com/watch?v=khzwjmpNLgs" target="_blank" class="pixel-btn btn-youtube">YOUTUBE</a>
+                    </div>
+                `;
             } 
             else if(gameId === 'viral') {
                 titleText = "VIRAL KAOS";
-                // Gönderdiğin Viral Chaos kodu
                 embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3261932" width="552" height="167"><a href="https://zanavagames.itch.io/viral-kaos">Viral Kaos by Zanava Games</a></iframe>';
             }
             else if(gameId === 'chase') {
                 titleText = "CHASE ME";
-                // Gönderdiğin Chase Me kodu
                 embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3825488" width="552" height="167"><a href="https://zanavagames.itch.io/chaseme">ChaseMe by Zanava Games</a></iframe>';
             }
             else if(gameId === 'panda') {
                 titleText = "PANDA BOY";
-                // Gönderdiğin Panda Boy kodu
                 embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3333702" width="552" height="167"><a href="https://zanavagames.itch.io/one-bit-platformer-handmade-assets">Panda Boy by Zanava Games</a></iframe>';
             }
             else if(gameId === 'drive') {
                 titleText = "DRIVE FOREVER";
-                // Gönderdiğin Drive Forever kodu
                 embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3263728" width="552" height="167"><a href="https://zanavagames.itch.io/drive-forever">Drive Forever by Zanava Games</a></iframe>';
             }
 
@@ -381,7 +406,7 @@
 
         function closeGame() {
             modal.style.display = "none";
-            gameFrame.innerHTML = ""; // Kapatınca oyunu durdurur
+            gameFrame.innerHTML = ""; // Kapatınca videoyu durdurur
         }
 
         // Pencere dışına tıklayınca kapatma
@@ -393,4 +418,3 @@
     </script>
 </body>
 </html>
-
