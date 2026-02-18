@@ -9,8 +9,8 @@
     <style>
         :root {
             --bg-color: #121212;
-            --main-color: #4cd137; /* GameBoy Yeşili/Parlak Yeşil */
-            --accent-color: #9c88ff; /* Retro Mor */
+            --main-color: #4cd137; /* Yeşil
+            --accent-color: #9c88ff; /* Mor */
             --text-color: #f5f6fa;
             --pixel-size: 4px;
         }
@@ -24,7 +24,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'VT323', monospace; /* Okunabilir pixel font */
+            font-family: 'VT323', monospace; /* Pixel font */
             font-size: 1.5rem;
             overflow-x: hidden;
             line-height: 1.6;
@@ -49,7 +49,7 @@
             z-index: 999;
         }
 
-        /* --- HEADER & HERO --- */
+        /* --- HEADER --- */
         header {
             text-align: center;
             padding: 4rem 1rem;
@@ -57,7 +57,7 @@
         }
 
         h1 {
-            font-family: 'Press Start 2P', cursive; /* Başlık Fontu */
+            font-family: 'Press Start 2P', cursive; /* Başlık */
             font-size: 2.5rem;
             color: var(--main-color);
             text-shadow: 4px 4px 0px #000;
@@ -77,7 +77,7 @@
             padding: 2rem;
         }
 
-        /* --- OYUN KARTLARI (Pixel Style) --- */
+        /* --- OYUN KARTLARI --- */
         .section-title {
             font-family: 'Press Start 2P', cursive;
             font-size: 1.5rem;
@@ -98,7 +98,7 @@
             background: #2f3640;
             padding: 1rem;
             position: relative;
-            box-shadow: 8px 8px 0px #000; /* Sert gölge */
+            box-shadow: 8px 8px 0px #000;
             transition: transform 0.2s;
         }
 
@@ -180,22 +180,30 @@
         <section id="about">
             <h2 class="section-title">PRESS START</h2>
             <p>
-                Zanava Games. Unity, Unreal Engine 5, Godot, Rpg Maker oyun motorları 
-                indie oyunlar geliştiriyorum.
+                Zanava Games I create a games with Unity, Unreal Engine 5, Godot, Rpg Maker.
             </p>
         </section>
 
         <section id="games">
-            <h2 class="section-title">PROJECTS</h2>
+            <h2 class="section-title">MY GAMES</h2>
             <div class="games-grid">
+                
+                  <article class="game-card">
+                    <div class="game-image">
+                        [GÖRSEL]
+                    </div>
+                    <h3 class="game-title">Rudimentary Souls</h3>
+                    <p>Open world 3d retro rpg game. Soulslike</p>
+                    <a href="#" class="pixel-btn">Check</a>
+                </article>
                 
                 <article class="game-card">
                     <div class="game-image">
                         [GÖRSEL]
                     </div>
-                    <h3 class="game-title">Viral Kaos</h3>
-                    <p>Open world top down rpg game.</p>
-                    <a href="#" class="pixel-btn">İncele</a>
+                    <h3 class="game-title">Viral Chaos</h3>
+                    <p>Fun top down rpg game.</p>
+                    <a href="#" class="pixel-btn">Check</a>
                 </article>
 
                 <article class="game-card">
@@ -203,24 +211,24 @@
                         [GÖRSEL]
                     </div>
                     <h3 class="game-title">Chase Me</h3>
-                    <p>Mystery dungeon tarzında deneme oyunum.</p>
-                    <a href="#" class="pixel-btn">İncele</a>
+                    <p>Mystery dungeon game.</p>
+                    <a href="#" class="pixel-btn">Check</a>
                 </article>
                 <article class="game-card">
                     <div class="game-image">
                         [GÖRSEL]
                     </div>
                     <h3 class="game-title">Panda Boy</h3>
-                    <p>Bütün assetlerini ve animasyonlarını kendim yaptığım Godot oyunum.</p>
-                    <a href="#" class="pixel-btn">İncele</a>
+                    <p>A godot game that i make all the assets.</p>
+                    <a href="#" class="pixel-btn">Check</a>
                 </article>
                 <article class="game-card">
                     <div class="game-image">
                         [GÖRSEL]
                     </div>
                     <h3 class="game-title">Drive Forever</h3>
-                    <p>Unity eğitimim için yaptığım araba oyunu.</p>
-                    <a href="#" class="pixel-btn">İncele</a>
+                    <p>Game that i made for Unity Training.</p>
+                    <a href="#" class="pixel-btn">Check</a>
                 </article>
 
             </div>
@@ -267,4 +275,5 @@
 </body>
 
 </html>
+
 
