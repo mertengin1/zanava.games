@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zanava Games | Indie Game Developer</title>
+    <title>Zanava Games | Indie Game Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #121212;
-            --main-color: #4cd137; /* Yeşil */
-            --accent-color: #9c88ff; /* Mor */
+            --bg-color: #0d0f12;
+            --card-bg: #1e242c;
+            --main-color: #4cd137; /* Retro Yeşil */
+            --accent-color: #9c88ff; /* Synth Mor */
+            --hot-pink: #ff3f34;
+            --gold: #fbc531;
             --text-color: #f5f6fa;
-            --pixel-size: 4px;
+            --text-muted: #a4b0be;
         }
 
         * {
@@ -23,14 +26,18 @@
 
         body {
             background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(76, 209, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(76, 209, 55, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
             color: var(--text-color);
-            font-family: 'VT323', monospace; /* Pixel font */
+            font-family: 'VT323', monospace;
             font-size: 1.5rem;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* --- CRT SCANLINE EFEKTİ --- */
+        /* --- CRT SCANLINE & VIGNETTE --- */
         .scanlines {
             position: fixed;
             top: 0;
@@ -41,130 +48,256 @@
                 to bottom,
                 rgba(255,255,255,0),
                 rgba(255,255,255,0) 50%,
-                rgba(0,0,0,0.1) 50%,
-                rgba(0,0,0,0.1)
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
             );
             background-size: 100% 4px;
             pointer-events: none;
             z-index: 999;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
         }
 
         /* --- HEADER --- */
         header {
             text-align: center;
-            padding: 4rem 1rem;
+            padding: 3.5rem 1rem 2.5rem;
             border-bottom: 4px solid var(--main-color);
+            background: radial-gradient(circle at center, #1a222d 0%, var(--bg-color) 100%);
+            box-shadow: 0 4px 20px rgba(76, 209, 55, 0.15);
         }
 
         h1 {
-            font-family: 'Press Start 2P', cursive; /* Başlık */
-            font-size: 2.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.8rem;
             color: var(--main-color);
-            text-shadow: 4px 4px 0px #000;
-            margin-bottom: 1rem;
+            text-shadow: 4px 4px 0px #000, 0 0 15px rgba(76, 209, 55, 0.5);
+            margin-bottom: 0.8rem;
+            letter-spacing: 2px;
         }
 
         .tagline {
             color: var(--accent-color);
             font-size: 1.8rem;
-            min-height: 2rem;
+            min-height: 2.2rem;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .header-links {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-pill {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.65rem;
+            padding: 0.5rem 0.9rem;
+            text-decoration: none;
+            color: #fff;
+            border: 2px solid #fff;
+            background: #000;
+            box-shadow: 3px 3px 0px #000;
+            transition: 0.1s transform;
+        }
+
+        .social-pill:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--main-color);
+            color: var(--main-color);
+            border-color: var(--main-color);
         }
 
         /* --- CONTAINER --- */
         .container {
-            max-width: 960px;
+            max-width: 1040px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 2rem 1.5rem;
         }
 
-        /* --- OYUN KARTLARI --- */
+        /* --- SECTION TITLES --- */
         .section-title {
             font-family: 'Press Start 2P', cursive;
-            font-size: 1.5rem;
-            border-left: 10px solid var(--accent-color);
+            font-size: 1.3rem;
+            border-left: 8px solid var(--accent-color);
             padding-left: 1rem;
-            margin: 3rem 0 2rem 0;
+            margin: 3rem 0 1.5rem 0;
             color: #fff;
+            text-shadow: 2px 2px 0 #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
+        /* --- ABOUT BOX --- */
+        .about-box {
+            background: var(--card-bg);
+            border: 3px solid #3d4852;
+            padding: 1.5rem;
+            box-shadow: 6px 6px 0 #000;
+        }
+
+        .engine-tags {
+            margin-top: 1rem;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            background: #111;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+
+        /* --- OYUN KARTLARI (GRID) --- */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.2rem;
         }
 
         .game-card {
-            border: 4px solid var(--text-color);
-            background: #2f3640;
-            padding: 1rem;
+            border: 3px solid var(--text-muted);
+            background: var(--card-bg);
+            padding: 1.2rem;
             position: relative;
             box-shadow: 8px 8px 0px #000;
-            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
         }
 
         .game-card:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 10px 10px 0px var(--main-color);
+            transform: translate(-3px, -3px);
+            box-shadow: 12px 12px 0px var(--main-color);
+            border-color: var(--main-color);
+        }
+
+        /* Yeni çıkan oyun için özel ışıltı */
+        .game-card.featured {
+            border-color: var(--gold);
+            box-shadow: 8px 8px 0px #000, 0 0 15px rgba(251, 197, 49, 0.2);
+        }
+
+        .game-card.featured:hover {
+            box-shadow: 12px 12px 0px var(--gold);
+            border-color: var(--gold);
+        }
+
+        .badge-new {
+            position: absolute;
+            top: -12px;
+            right: 12px;
+            background: var(--gold);
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            padding: 4px 8px;
+            box-shadow: 2px 2px 0 #000;
+            font-weight: bold;
+            z-index: 2;
         }
 
         .game-image {
             width: 100%;
             height: 200px;
-            background-color: #000;
+            background-color: #050505;
             image-rendering: pixelated;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #555;
             border: 2px solid #000;
             overflow: hidden;
+            position: relative;
         }
         
         .game-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.05);
+        }
+
+        .game-type {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            color: var(--accent-color);
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
         }
 
         .game-title {
             font-family: 'Press Start 2P', cursive;
-            font-size: 1rem;
-            color: var(--main-color);
-            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 0.6rem;
         }
 
-        /* --- BUTONLAR (NES Style) --- */
+        .game-desc {
+            color: var(--text-muted);
+            font-size: 1.35rem;
+            margin-bottom: 1.2rem;
+            min-height: 2.8rem;
+        }
+
+        /* --- BUTONLAR --- */
         .pixel-btn {
-            display: inline-block;
+            display: block;
+            width: 100%;
+            text-align: center;
             background-color: var(--main-color);
             color: #000;
             font-family: 'Press Start 2P', cursive;
-            font-size: 0.8rem;
-            padding: 1rem 1.5rem;
+            font-size: 0.75rem;
+            padding: 0.9rem;
             text-decoration: none;
             border: none;
             cursor: pointer;
-            margin-top: 1rem;
-            box-shadow: inset -4px -4px 0px 0px rgba(0,0,0,0.5), inset 4px 4px 0px 0px rgba(255,255,255,0.5);
+            box-shadow: inset -3px -3px 0px 0px rgba(0,0,0,0.6), inset 3px 3px 0px 0px rgba(255,255,255,0.6);
+            transition: background-color 0.1s;
+        }
+
+        .pixel-btn:hover {
+            background-color: #55e63e;
         }
 
         .pixel-btn:active {
-            box-shadow: inset 4px 4px 0px 0px rgba(0,0,0,0.5);
+            box-shadow: inset 3px 3px 0px 0px rgba(0,0,0,0.6);
             transform: translateY(2px);
         }
 
-        /* Sosyal Medya Butonları için Özel Renkler */
+        .btn-gold {
+            background-color: var(--gold) !important;
+            color: #000 !important;
+        }
+
         .btn-youtube {
             background-color: #FF0000 !important;
             color: #fff !important;
         }
+
         .btn-instagram {
             background-color: #C13584 !important;
             color: #fff !important;
         }
 
-        /* --- MODAL (POPUP) STİLLERİ --- */
+        .btn-itch {
+            background-color: #fa5c5c !important;
+            color: #fff !important;
+        }
+
+        /* --- MODAL --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -174,29 +307,29 @@
             width: 100%; 
             height: 100%; 
             overflow: auto; 
-            background-color: rgba(0,0,0,0.9); 
-            backdrop-filter: blur(5px);
+            background-color: rgba(0,0,0,0.92); 
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            background-color: #1a1a1a;
-            margin: 5% auto; 
-            padding: 20px;
+            background-color: #15191f;
+            margin: 3% auto; 
+            padding: 24px;
             border: 4px solid var(--main-color);
-            width: 80%;
-            max-width: 1000px;
+            width: 90%;
+            max-width: 900px;
             text-align: center;
             position: relative;
-            box-shadow: 0 0 20px var(--main-color);
+            box-shadow: 0 0 30px rgba(76, 209, 55, 0.4);
         }
 
         .close-btn {
-            color: var(--main-color);
+            color: var(--hot-pink);
             float: right;
-            font-size: 28px;
-            font-weight: bold;
+            font-size: 24px;
             cursor: pointer;
             font-family: 'Press Start 2P', cursive;
+            transition: color 0.1s;
         }
 
         .close-btn:hover {
@@ -205,26 +338,26 @@
 
         .iframe-container {
             width: 100%;
-            min-height: 400px; /* YouTube için biraz daha yükseklik */
+            min-height: 420px;
             background: #000;
             display: flex;
-            flex-direction: column; /* İçerikleri alt alta dizmek için */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 2px solid #333;
-            padding: 20px;
+            border: 2px solid #2f3640;
+            padding: 15px;
+            overflow: hidden;
         }
 
         .iframe-container iframe {
             max-width: 100%;
-            flex-grow: 1; /* Iframe alanı kaplasın */
+            max-height: 80vh;
         }
 
-        /* Modal içindeki link kutusu */
         .social-links-container {
-            margin-top: 20px;
+            margin-top: 15px;
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -232,17 +365,20 @@
         /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            padding: 2.5rem;
+            margin-top: 5rem;
             border-top: 4px solid var(--main-color);
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #7f8fa6;
+            background: #0a0c0e;
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 1.5rem; }
-            .tagline { font-size: 1.2rem; }
-            .iframe-container { min-height: 300px; }
+        @media (max-width: 650px) {
+            h1 { font-size: 1.6rem; }
+            .tagline { font-size: 1.3rem; }
+            .section-title { font-size: 1rem; }
+            .iframe-container { min-height: 320px; }
+            .modal-content { margin: 10% auto; width: 95%; padding: 15px; }
         }
     </style>
 </head>
@@ -253,72 +389,117 @@
     <header>
         <h1>ZANAVA GAMES</h1>
         <div class="tagline" id="typewriter"></div>
+        
+        <div class="header-links">
+            <a href="https://zanavagames.itch.io" target="_blank" class="social-pill">itch.io</a>
+            <a href="https://www.instagram.com/zanavagames/" target="_blank" class="social-pill">Instagram</a>
+            <a href="https://www.youtube.com/@vruncut" target="_blank" class="social-pill">YouTube</a>
+        </div>
     </header>
 
     <main class="container">
         
         <section id="about">
             <h2 class="section-title">PRESS START</h2>
-            <p>
-                Zanava Games I create a games with Unity, Unreal Engine 5, Godot, Rpg Maker.
-            </p>
+            <div class="about-box">
+                <p>
+                    Zanava Games is an independent game development studio focusing on retro aesthetics, dark fantasy worlds, and addictive casual experiences.
+                </p>
+                <div class="engine-tags">
+                    <span class="tag">UNITY</span>
+                    <span class="tag">GODOT</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">PIXEL ART</span>
+                    <span class="tag">SOULSLIKE</span>
+                </div>
+            </div>
         </section>
 
         <section id="games">
-            <h2 class="section-title">MY GAMES</h2>
+            <h2 class="section-title">
+                <span>CATALOG</span>
+                <span style="font-size: 0.6rem; color: var(--main-color);">[SELECT GAME]</span>
+            </h2>
+            
             <div class="games-grid">
-                <article class="game-card">
+                
+                <!-- ZLING (FEATURED) -->
+                <article class="game-card featured">
+                    <span class="badge-new">NEW!</span>
                     <div class="game-image">
-                        <img src="images/zling.png" alt="Zling">
+                        <img src="images/zling.png" alt="Zling" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=ZLING'">
                     </div>
-                    <h3 class="game-title">Zling</h3>
-                    <p>Mobile hyper-casual puzzle game.</p>
-                    <button onclick="openGame('zling')" class="pixel-btn">Play</button>
+                    <div>
+                        <div class="game-type">[MOBILE / PUZZLE]</div>
+                        <h3 class="game-title">Zling</h3>
+                        <p class="game-desc">Addictive hyper-casual puzzle game built for mobile devices.</p>
+                    </div>
+                    <button onclick="openGame('zling')" class="pixel-btn btn-gold">Play on itch.io</button>
                 </article>
                 
-                  <article class="game-card">
+                <!-- RUDIMENTARY SOULS -->
+                <article class="game-card">
                     <div class="game-image">
-                        <img src="images/rudi.png" alt="Rudimentary Souls">
+                        <img src="images/rudi.png" alt="Rudimentary Souls" onerror="this.src='https://via.placeholder.com/400x250/111/9c88ff?text=RUDIMENTARY+SOULS'">
                     </div>
-                    <h3 class="game-title">Rudimentary Souls</h3>
-                    <p>Open world 3d retro rpg game. Soulslike</p>
+                    <div>
+                        <div class="game-type">[3D / ACTION RPG]</div>
+                        <h3 class="game-title">Rudimentary Souls</h3>
+                        <p class="game-desc">Open world retro 3D dark fantasy action RPG. Soulslike challenge.</p>
+                    </div>
                     <button onclick="openGame('rudimentary')" class="pixel-btn">Watch Trailer</button>
                 </article>
                 
+                <!-- VIRAL KAOS -->
                 <article class="game-card">
                     <div class="game-image">
-                        <img src="images/viral.png" alt="Viral Chaos">
+                        <img src="images/viral.png" alt="Viral Chaos" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=VIRAL+CHAOS'">
                     </div>
-                    <h3 class="game-title">Viral Chaos</h3>
-                    <p>Fun top down rpg game.</p>
-                    <button onclick="openGame('viral')" class="pixel-btn">Play</button>
+                    <div>
+                        <div class="game-type">[TOP-DOWN / RPG]</div>
+                        <h3 class="game-title">Viral Chaos</h3>
+                        <p class="game-desc">Fast-paced retro comedy and chaos RPG adventure.</p>
+                    </div>
+                    <button onclick="openGame('viral')" class="pixel-btn">Play Now</button>
                 </article>
 
+                <!-- CHASE ME -->
                 <article class="game-card">
                     <div class="game-image">
-                        <img src="images/chase.png" alt="Chase Me">
+                        <img src="images/chase.png" alt="Chase Me" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=CHASE+ME'">
                     </div>
-                    <h3 class="game-title">Chase Me</h3>
-                    <p>Mystery dungeon game.</p>
-                    <button onclick="openGame('chase')" class="pixel-btn">Play</button>
+                    <div>
+                        <div class="game-type">[DUNGEON / MYSTERY]</div>
+                        <h3 class="game-title">Chase Me</h3>
+                        <p class="game-desc">Unforgiving mystery dungeon crawling experience.</p>
+                    </div>
+                    <button onclick="openGame('chase')" class="pixel-btn">Play Now</button>
                 </article>
                 
+                <!-- PANDA BOY -->
                 <article class="game-card">
                     <div class="game-image">
-                        <img src="images/panda.png" alt="Panda Boy">
+                        <img src="images/panda.png" alt="Panda Boy" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=PANDA+BOY'">
                     </div>
-                    <h3 class="game-title">Panda Boy</h3>
-                    <p>A godot game that i make all the assets.</p>
-                    <button onclick="openGame('panda')" class="pixel-btn">Play</button>
+                    <div>
+                        <div class="game-type">[1-BIT / PLATFORMER]</div>
+                        <h3 class="game-title">Panda Boy</h3>
+                        <p class="game-desc">Handcrafted 1-bit Godot platformer adventure.</p>
+                    </div>
+                    <button onclick="openGame('panda')" class="pixel-btn">Play Now</button>
                 </article>
                 
+                <!-- DRIVE FOREVER -->
                 <article class="game-card">
                     <div class="game-image">
-                        <img src="images/drive.png" alt="Drive Forever">
+                        <img src="images/drive.png" alt="Drive Forever" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=DRIVE+FOREVER'">
                     </div>
-                    <h3 class="game-title">Drive Forever</h3>
-                    <p>Game that i made for Unity Training.</p>
-                    <button onclick="openGame('drive')" class="pixel-btn">Play</button>
+                    <div>
+                        <div class="game-type">[ARCADE / DRIVING]</div>
+                        <h3 class="game-title">Drive Forever</h3>
+                        <p class="game-desc">Infinite retro highway cruise made in Unity.</p>
+                    </div>
+                    <button onclick="openGame('drive')" class="pixel-btn">Play Now</button>
                 </article>
 
             </div>
@@ -326,24 +507,26 @@
 
     </main>
 
+    <!-- MODAL POPUP -->
     <div id="gameModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeGame()">&times;</span>
-            <h2 id="modalTitle" style="margin-bottom: 20px; font-family: 'Press Start 2P'; color: var(--main-color);"></h2>
+            <h2 id="modalTitle" style="margin-bottom: 15px; font-family: 'Press Start 2P'; color: var(--main-color); font-size: 1.1rem;"></h2>
             
             <div class="iframe-container" id="gameFrame">
-                </div>
+                <!-- Embed buraya gelecek -->
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Zanava Games. All Rights Reserved.</p>
-        <p style="margin-top:10px;">Powered by Unity & Coffee</p>
+        <p>&copy; 2026 Zanava Games. All Rights Reserved.</p>
+        <p style="margin-top:8px; font-size: 0.9rem; color: #57606f;">PIXELS, CODE & COFFEE</p>
     </footer>
 
     <script>
         // --- TYPEWRITER EFEKTİ ---
-        const textToType = "PIXEL ART. UNITY. CREATIVITY.";
+        const textToType = "PIXEL ART. INDIE GAMES. SOULSLIKE.";
         const typeWriterElement = document.getElementById('typewriter');
         let i = 0;
 
@@ -351,7 +534,7 @@
             if (i < textToType.length) {
                 typeWriterElement.innerHTML += textToType.charAt(i);
                 i++;
-                setTimeout(typeWriter, 100); 
+                setTimeout(typeWriter, 90); 
             } else {
                 typeWriterElement.innerHTML += '<span style="animation: blink 1s infinite">_</span>';
             }
@@ -360,9 +543,8 @@
         const styleSheet = document.createElement("style");
         styleSheet.innerText = `
             @keyframes blink {
-                0% { opacity: 0; }
+                0%, 100% { opacity: 0; }
                 50% { opacity: 1; }
-                100% { opacity: 0; }
             }
         `;
         document.head.appendChild(styleSheet);
@@ -380,36 +562,39 @@
             
             if(gameId === 'rudimentary') {
                 titleText = "RUDIMENTARY SOULS";
-                // YouTube Embed + Sosyal Medya Linkleri
-                // autoplay=1 parametresi ile otomatik başlar
                 embedCode = `
                     <iframe width="100%" height="450" src="https://www.youtube.com/embed/khzwjmpNLgs?autoplay=1" title="Rudimentary Souls Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     
                     <div class="social-links-container">
-                        <a href="https://www.instagram.com/zanavagames/" target="_blank" class="pixel-btn btn-instagram">INSTAGRAM</a>
-                        <a href="https://www.youtube.com/watch?v=khzwjmpNLgs" target="_blank" class="pixel-btn btn-youtube">YOUTUBE</a>
+                        <a href="https://www.instagram.com/zanavagames/" target="_blank" class="pixel-btn btn-instagram" style="width: auto; padding: 0.6rem 1.2rem;">INSTAGRAM</a>
+                        <a href="https://www.youtube.com/watch?v=khzwjmpNLgs" target="_blank" class="pixel-btn btn-youtube" style="width: auto; padding: 0.6rem 1.2rem;">YOUTUBE</a>
                     </div>
                 `;
             } 
             else if(gameId === 'zling') {
                 titleText = "ZLING";
-                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/19237269?color=333333" allowfullscreen="" width="540" height="980"><a href="https://zanavagames.itch.io/zling">Play Zling on itch.io</a></iframe>';
-            }
+                embedCode = `
+                    <iframe frameborder="0" src="https://itch.io/embed-upload/19237269?color=333333" allowfullscreen="" width="380" height="680" style="max-height: 75vh;"><a href="https://zanavagames.itch.io/zling">Play Zling on itch.io</a></iframe>
+                    <div class="social-links-container">
+                        <a href="https://zanavagames.itch.io/zling" target="_blank" class="pixel-btn btn-itch" style="width: auto; padding: 0.6rem 1.2rem;">OPEN ON ITCH.IO</a>
+                    </div>
+                `;
+            } 
             else if(gameId === 'viral') {
                 titleText = "VIRAL KAOS";
-                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/12581838?color=000000" allowfullscreen="" width="800" height="620"><a href="https://zanavagames.itch.io/viral-kaos">Play Viral Kaos on itch.io</a></iframe>';
-            }
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/12581838?color=000000" allowfullscreen="" width="800" height="520"><a href="https://zanavagames.itch.io/viral-kaos">Play Viral Kaos on itch.io</a></iframe>';
+            } 
             else if(gameId === 'chase') {
                 titleText = "CHASE ME";
-                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/14719971?color=000000" allowfullscreen="" width="980" height="640"><a href="https://zanavagames.itch.io/chaseme">Play ChaseMe on itch.io</a></iframe>';
-            }
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/14719971?color=000000" allowfullscreen="" width="900" height="560"><a href="https://zanavagames.itch.io/chaseme">Play ChaseMe on itch.io</a></iframe>';
+            } 
             else if(gameId === 'panda') {
                 titleText = "PANDA BOY";
-                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/12838332?color=000000" allowfullscreen="" width="800" height="620"><a href="https://zanavagames.itch.io/one-bit-platformer-handmade-assets">Play Panda Boy on itch.io</a></iframe>';
-            }
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/12838332?color=000000" allowfullscreen="" width="800" height="520"><a href="https://zanavagames.itch.io/one-bit-platformer-handmade-assets">Play Panda Boy on itch.io</a></iframe>';
+            } 
             else if(gameId === 'drive') {
                 titleText = "DRIVE FOREVER";
-                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/12572014?color=333333" allowfullscreen="" width="800" height="620"><a href="https://zanavagames.itch.io/drive-forever">Play Drive Forever on itch.io</a></iframe>';
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/12572014?color=333333" allowfullscreen="" width="800" height="520"><a href="https://zanavagames.itch.io/drive-forever">Play Drive Forever on itch.io</a></iframe>';
             }
 
             modalTitle.innerText = titleText;
@@ -418,15 +603,21 @@
 
         function closeGame() {
             modal.style.display = "none";
-            gameFrame.innerHTML = ""; // Kapatınca videoyu durdurur
+            gameFrame.innerHTML = ""; 
         }
 
-        // Pencere dışına tıklayınca kapatma
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeGame();
             }
         }
+
+        // ESC tuşuyla modal kapatma
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === "block") {
+                closeGame();
+            }
+        });
     </script>
 </body>
 </html>
