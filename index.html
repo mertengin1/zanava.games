@@ -297,6 +297,59 @@
             color: #fff !important;
         }
 
+        /* --- BIO & CONTACT GRID --- */
+        .bio-contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2.2rem;
+        }
+
+        .bio-box {
+            background: var(--card-bg);
+            border: 3px solid #3d4852;
+            padding: 1.8rem;
+            box-shadow: 6px 6px 0 #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bio-box h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.85rem;
+            color: var(--main-color);
+            margin-bottom: 1rem;
+        }
+
+        .bio-text {
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .email-pill-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-color);
+            color: #000;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.65rem;
+            padding: 1.1rem 0.8rem;
+            text-decoration: none;
+            box-shadow: inset -3px -3px 0px 0px rgba(0,0,0,0.6), inset 3px 3px 0px 0px rgba(255,255,255,0.6);
+            transition: transform 0.1s, background-color 0.1s, box-shadow 0.1s;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .email-pill-btn:hover {
+            background-color: #b8a5ff;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px var(--main-color), inset -3px -3px 0px 0px rgba(0,0,0,0.6), inset 3px 3px 0px 0px rgba(255,255,255,0.6);
+        }
+
         /* --- MODAL --- */
         .modal {
             display: none; 
@@ -373,6 +426,12 @@
             background: #0a0c0e;
         }
 
+        @media (max-width: 768px) {
+            .bio-contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 650px) {
             h1 { font-size: 1.6rem; }
             .tagline { font-size: 1.3rem; }
@@ -395,6 +454,7 @@
             <a href="https://www.instagram.com/zanavagames/" target="_blank" class="social-pill">Instagram</a>
             <a href="https://www.youtube.com/@zanavagames" target="_blank" class="social-pill">YouTube</a>
             <a href="https://twitter.com/zanavagames" target="_blank" class="social-pill">X</a>
+            <a href="#about-contact" class="social-pill">Contact</a>
         </div>
     </header>
 
@@ -506,6 +566,40 @@
             </div>
         </section>
 
+        <!-- BIO & DIRECT TRANSMISSION (CONTACT) -->
+        <section id="about-contact">
+            <h2 class="section-title">
+                <span>DEV LOG & CONTACT</span>
+                <span style="font-size: 0.6rem; color: var(--accent-color);">[TRANSMISSION READY]</span>
+            </h2>
+
+            <div class="bio-contact-grid">
+                <!-- Bio Alanı -->
+                <div class="bio-box">
+                    <h3>> ABOUT THE DEV</h3>
+                    <p class="bio-text">
+                        Hello, I'm Mert — an indie solo developer and the mind behind <strong>Zanava Games</strong>. I build retro-styled experiences ranging from 3D dark fantasy action RPGs to addictive hyper-casual mobile puzzles, mixing classic pixel aesthetics with clean modern code.
+                    </p>
+                    <p class="bio-text" style="margin-bottom: 0;">
+                        Equipped with Unity, Godot, and plenty of coffee, I focus on atmospheric worlds, retro game feel, and memorable mechanics.
+                    </p>
+                </div>
+
+                <!-- İletişim / Mail Alanı -->
+                <div class="bio-box">
+                    <div>
+                        <h3>> TRANSMIT</h3>
+                        <p class="bio-text" style="font-size: 1.25rem; margin-bottom: 1.2rem;">
+                            Looking for collabs, game design talk, feedback or publishing inquiries? Drop a direct message.
+                        </p>
+                    </div>
+                    <a href="mailto:zanavagames@gmail.com" class="email-pill-btn">
+                        ✉️ zanavagames@gmail.com
+                    </a>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- MODAL POPUP -->
@@ -521,7 +615,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Zanava Games. All Rights Reserved.</p>
+        <p>&copy; 2026 Zanava Games. All Rights Reserved.</p>
         <p style="margin-top:8px; font-size: 0.9rem; color: #57606f;">PIXELS, CODE & COFFEE</p>
     </footer>
 
