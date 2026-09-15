@@ -377,7 +377,7 @@
             modal.style.display = "block";
             let embedCode = "";
             let titleText = "";
-
+            
             if(gameId === 'rudimentary') {
                 titleText = "RUDIMENTARY SOULS";
                 // YouTube Embed + Sosyal Medya Linkleri
@@ -391,6 +391,10 @@
                     </div>
                 `;
             } 
+            else if(gameId === 'zling') {
+                titleText = "ZLING";
+                embedCode = '<iframe frameborder="0" src="https://itch.io/embed-upload/19237269?color=333333" allowfullscreen="" width="540" height="980"><a href="https://zanavagames.itch.io/zling">Play Zling on itch.io</a></iframe>';
+            }
             else if(gameId === 'viral') {
                 titleText = "VIRAL KAOS";
                 embedCode = '<iframe frameborder="0" src="https://itch.io/embed/3261932" width="552" height="167"><a href="https://zanavagames.itch.io/viral-kaos">Viral Kaos by Zanava Games</a></iframe>';
