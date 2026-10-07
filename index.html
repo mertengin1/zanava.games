@@ -179,7 +179,7 @@
             border-color: var(--main-color);
         }
 
-        /* Yeni çıkan oyun için özel ışıltı */
+        /* Yeni çıkan / Öne çıkan oyun için özel ışıltı */
         .game-card.featured {
             border-color: var(--gold);
             box-shadow: 8px 8px 0px #000, 0 0 15px rgba(251, 197, 49, 0.2);
@@ -391,7 +391,7 @@
 
         .iframe-container {
             width: 100%;
-            min-height: 420px;
+            min-height: 240px;
             background: #000;
             display: flex;
             flex-direction: column;
@@ -436,7 +436,7 @@
             h1 { font-size: 1.6rem; }
             .tagline { font-size: 1.3rem; }
             .section-title { font-size: 1rem; }
-            .iframe-container { min-height: 320px; }
+            .iframe-container { min-height: 220px; }
             .modal-content { margin: 10% auto; width: 95%; padding: 15px; }
         }
     </style>
@@ -484,9 +484,22 @@
             
             <div class="games-grid">
                 
-                <!-- ZLING (FEATURED) -->
+                <!-- DANZAR (FEATURED / HEADLINER) -->
                 <article class="game-card featured">
                     <span class="badge-new">NEW!</span>
+                    <div class="game-image">
+                        <img src="images/danzar.png" alt="Danzar" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=DANZAR'">
+                    </div>
+                    <div>
+                        <div class="game-type">[ROGUELIKE / DICE RPG]</div>
+                        <h3 class="game-title">DANZAR</h3>
+                        <p class="game-desc">Buriedbornes-inspired dark retro turn-based dungeon crawler. Roll dice to strike or heal.</p>
+                    </div>
+                    <button onclick="openGame('danzar')" class="pixel-btn btn-gold">Play / View</button>
+                </article>
+
+                <!-- ZLING -->
+                <article class="game-card">
                     <div class="game-image">
                         <img src="images/zling.png" alt="Zling" onerror="this.src='https://via.placeholder.com/400x250/111/4cd137?text=ZLING'">
                     </div>
@@ -495,7 +508,7 @@
                         <h3 class="game-title">Zling</h3>
                         <p class="game-desc">Addictive hyper-casual puzzle game built for mobile devices.</p>
                     </div>
-                    <button onclick="openGame('zling')" class="pixel-btn btn-gold">Play Now</button>
+                    <button onclick="openGame('zling')" class="pixel-btn">Play Now</button>
                 </article>
                 
                 <!-- RUDIMENTARY SOULS -->
@@ -655,7 +668,16 @@
             let embedCode = "";
             let titleText = "";
             
-            if(gameId === 'rudimentary') {
+            if(gameId === 'danzar') {
+                titleText = "DANZAR";
+                embedCode = `
+                    <iframe frameborder="0" src="https://itch.io/embed/5073278" width="552" height="167" style="max-width: 100%;"><a href="https://zanavagames.itch.io/danzar">Danzar by Zanava Games</a></iframe>
+                    <div class="social-links-container">
+                        <a href="https://zanavagames.itch.io/danzar" target="_blank" class="pixel-btn btn-itch" style="width: auto; padding: 0.6rem 1.2rem;">PLAY ON ITCH.IO</a>
+                    </div>
+                `;
+            }
+            else if(gameId === 'rudimentary') {
                 titleText = "RUDIMENTARY SOULS";
                 embedCode = `
                     <iframe width="100%" height="450" src="https://www.youtube.com/embed/khzwjmpNLgs?autoplay=1" title="Rudimentary Souls Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
